@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
-import {persons} from "./persons";
+import {notes} from "./notes";
 
 const rootReducer = combineReducers({
-  persons
+  notes
 })
 
 export default rootReducer;

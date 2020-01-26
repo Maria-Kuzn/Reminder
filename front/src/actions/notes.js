@@ -1,11 +1,11 @@
-export function personsFetchDataSuccess(persons){
+export function notesFetchDataSuccess(notes){
   return{
     type: "PERSONS_FETCH_DATA_SUCCESS",
-    persons
+    notes
   }
 }
 
-export function personsFetchData(url){
+export function notesFetchData(url){
   return(dispatch)=>{
     fetch(url)
       .then(response => {
@@ -15,6 +15,6 @@ export function personsFetchData(url){
         return response;
       })
       .then (response => response.json())
-      .then (persons => dispatch(personsFetchDataSuccess(persons)))
+      .then (notes => dispatch(notesFetchDataSuccess(notes)))
   }
 }

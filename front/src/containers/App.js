@@ -1,40 +1,45 @@
-import React from 'react';
 import './App.css';
+import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {personsFetchData} from "../actions/persons";
-//import axios from 'axios';
+import {Switch, Route, Redirect} from "react-router-dom";
 
-class App extends React.Component {
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from '../components/Navbar';
 
-componentDidMount(){
-  // this.props.fetchData("http://localhost:8000/api/users");
-}
+//Добавление страниц
+import NewNote from '../components/pages/NewNote';
+import Home from '../components/pages/Home';
+import Authorization from '../components/pages/Authorization';
 
-render(){
-    return(
-      <div>
-        <ul>
-            {this.props.persons.map((person, index)=>{
-              return<li key={index}>
-              <div>{person.name}</div>
-              </li>
-            })}
-        </ul>
+import {notesFetchData} from "../actions/notes";
 
-      </div>
-    );
-  }
+class App extends Component {
+  render(){
+      return(
+        <div>
+          <Navbar />
+
+          <Switch>
+            <Route exact path="/">
+                <Home notes={this.props.notes} fetchData={this.props.fetchData.bind(this)}/>
+            </Route>
+            <Route path="/NewNote" component={NewNote}/>
+            <Route path="/Authorization" component={Authorization}/>
+          </Switch>
+        </div>
+      );
+    }
 }
 
 const mapStateToProps = state =>{
   return{
-    persons: state.persons
+    notes: state.notes
   };
 };
 
 const mapDispatchToProps = dispatch =>{
   return{
-    fetchData: url => {dispatch(personsFetchData(url))}
+    fetchData: url => {dispatch(notesFetchData(url))}
   };
 };
 
