@@ -11,7 +11,7 @@ import NewNote from '../components/pages/NewNote';
 import Home from '../components/pages/Home';
 import Authorization from '../components/pages/Authorization';
 
-import {notesFetchData} from "../actions/notes";
+import {stateFetchGetNotes, stateFetchDeleteNote} from "../actions/notes";
 
 class App extends Component {
   render(){
@@ -21,7 +21,10 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/">
-                <Home notes={this.props.notes} fetchData={this.props.fetchData.bind(this)}/>
+                <Home notes={this.props.notes}
+                      fetchGetNotes={this.props.fetchGetNotes.bind(this)}
+                      fetchDeleteNote={this.props.fetchDeleteNote.bind(this)}
+                      />
             </Route>
             <Route path="/NewNote" component={NewNote}/>
             <Route path="/Authorization" component={Authorization}/>
@@ -37,9 +40,10 @@ const mapStateToProps = state =>{
   };
 };
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
   return{
-    fetchData: url => {dispatch(notesFetchData(url))}
+    fetchGetNotes: url => {dispatch(stateFetchGetNotes(url))},
+    fetchDeleteNote: url => {dispatch(stateFetchDeleteNote(url))}
   };
 };
 

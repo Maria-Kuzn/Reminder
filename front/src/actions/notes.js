@@ -1,11 +1,11 @@
-export function notesFetchDataSuccess(notes){
+export function notesFetchDataSuccess(type, data){
   return{
-    type: "NOTES_FETCH_DATA_SUCCESS",
-    notes
+    type,
+    data
   }
 }
 
-export function notesFetchData(url){
+export function stateFetchGetNotes(url){
   return(dispatch)=>{
     fetch(url)
       .then(response => {
@@ -15,6 +15,21 @@ export function notesFetchData(url){
         return response;
       })
       .then (response => response.json())
-      .then (notes => dispatch(notesFetchDataSuccess(notes)))
+      .then (notes => dispatch(notesFetchDataSuccess("GET_NOTES_FETCH", notes)))
+  }
+}
+export function stateFetchDeleteNote(url){
+  return(dispatch)=>{
+    fetch(url, {
+          method: 'DELETE'
+        })
+        .then(response => {
+          if (!response.ok)
+            throw new Error(response.statusText);
+          else
+            return response;
+        })
+        .then (response => response.json())
+        .then (note => dispatch(notesFetchDataSuccess("DELETE_NOTES_FETCH", note)))
   }
 }

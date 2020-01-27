@@ -8,18 +8,11 @@ class Home extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount(){
-    this.props.fetchData(API_BACK_URL + "/notes");
+    this.props.fetchGetNotes(API_BACK_URL + "/notes");
   }
 
   handleDelete(id) {
-    fetch(API_BACK_URL + "/notes/" + id, {
-          method: 'DELETE'
-        })
-        .then(response => {
-          if (response.ok) {
-            this.props.notes = this.props.notes.filter((row) => row._id !== id);
-          }
-        })
+    this.props.fetchDeleteNote(API_BACK_URL + "/notes/" + id);
   }
 
   render(){
