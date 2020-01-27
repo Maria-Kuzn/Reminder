@@ -1,7 +1,7 @@
 import './App.css';
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Switch, Route, Redirect} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../components/Navbar';
@@ -18,7 +18,6 @@ class App extends Component {
       return(
         <div>
           <Navbar />
-
           <Switch>
             <Route exact path="/">
                 <Home notes={this.props.notes}

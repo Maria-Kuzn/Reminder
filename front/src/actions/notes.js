@@ -1,3 +1,4 @@
+//проверка успешности запроса
 export function notesFetchDataSuccess(type, data){
   return{
     type,
@@ -5,6 +6,7 @@ export function notesFetchDataSuccess(type, data){
   }
 }
 
+//GET-запрос для таблицы заметок
 export function stateFetchGetNotes(url){
   return(dispatch)=>{
     fetch(url)
@@ -18,6 +20,8 @@ export function stateFetchGetNotes(url){
       .then (notes => dispatch(notesFetchDataSuccess("GET_NOTES_FETCH", notes)))
   }
 }
+
+//DELETE-запрос для удаления заметки
 export function stateFetchDeleteNote(url){
   return(dispatch)=>{
     fetch(url, {

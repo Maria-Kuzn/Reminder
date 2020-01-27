@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {API_BACK_URL} from '../../constants';
+import Notifications from '../Notifications';
 
 class Home extends Component {
   constructor(props) {
@@ -15,11 +16,22 @@ class Home extends Component {
     this.props.fetchDeleteNote(API_BACK_URL + "/notes/" + id);
   }
 
+  dateBeautifier(date){
+    var newDate = new Date(date);
+    var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    var minutes = newDate.getMinutes()
+    if (minutes < 10) minutes = '0' + minutes;
+    return(
+      newDate.getDate() + " " + months[newDate.getMonth()] + " " + newDate.getFullYear() + "г. " + newDate.getHours() + ":" + minutes
+    )
+  }
+
   render(){
     return(
-      <div className="row">
-        <div className="col"></div>
-        <div className="col-10">
+      <div className="container">
+
+        <Notifications notes={this.props.notes} />
+
           <table className="table table-hover">
             <thead>
               <tr>
@@ -34,7 +46,7 @@ class Home extends Component {
                    return(
                      <tr>
                        <td>{note.title}</td>
-                       <td>{note.date}</td>
+                       <td>{this.dateBeautifier(note.date)}</td>
                        <td>{note.comment}</td>
                        <td>
                          <button onClick={() => this.handleDelete(note._id)} className="btn btn-outline-danger btn-sm">Удалить</button>
@@ -44,9 +56,8 @@ class Home extends Component {
                 })}
             </tbody>
           </table>
-        </div>
-        <div className="col"></div>
       </div>
+
     );
   }
 }
