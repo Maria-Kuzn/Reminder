@@ -48,11 +48,10 @@ router.post("/", jsonParser, function (req, res) {
      });
 
     note.save(function(err) {
-        if(err) {
-            return console.log(err);
-        }
-
-        res.send(note);
+        if(err)
+            console.log(err);
+        else
+          res.send(note);
     });
 });
 
@@ -60,11 +59,10 @@ router.delete("/:id", function(req, res) {
     const id = req.params.id;
 
     Note.findByIdAndDelete(id, function(err, note) {
-        if(err) {
-            return console.log(err);
-        }
-
-        res.send(note);
+        if(err)
+            console.log(err);
+        else
+          res.send(note);
     });
 });
 

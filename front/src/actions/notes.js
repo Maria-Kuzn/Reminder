@@ -1,6 +1,6 @@
 export function notesFetchDataSuccess(notes){
   return{
-    type: "PERSONS_FETCH_DATA_SUCCESS",
+    type: "NOTES_FETCH_DATA_SUCCESS",
     notes
   }
 }

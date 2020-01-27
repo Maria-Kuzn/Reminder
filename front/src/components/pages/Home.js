@@ -1,12 +1,25 @@
 import React, {Component} from 'react';
+import {API_BACK_URL} from '../../constants';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.props = props;
+    this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount(){
-    this.props.fetchData("http://localhost:8000/api/notes");
+    this.props.fetchData(API_BACK_URL + "/notes");
+  }
+
+  handleDelete(id) {
+    fetch(API_BACK_URL + "/notes/" + id, {
+          method: 'DELETE'
+        })
+        .then(response => {
+          if (response.ok) {
+            this.props.notes = this.props.notes.filter((row) => row._id !== id);
+          }
+        })
   }
 
   render(){
@@ -31,7 +44,7 @@ class Home extends Component {
                        <td>{note.date}</td>
                        <td>{note.comment}</td>
                        <td>
-                         <a href=""><button className="btn btn-outline-danger btn-sm">Удалить</button></a>
+                         <button onClick={() => this.handleDelete(note._id)} className="btn btn-outline-danger btn-sm">Удалить</button>
                        </td>
                      </tr>
                 )
