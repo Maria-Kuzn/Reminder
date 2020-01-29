@@ -1,0 +1,15 @@
+version: "3"
+services:
+    back:
+        build: back/
+        command: node index.js
+        ports:
+            - 8000:8000
+    front:
+        build: front/
+        command: npm start
+        ports:
+            - 3000:3000
+        depends_on:
+            - back
+
