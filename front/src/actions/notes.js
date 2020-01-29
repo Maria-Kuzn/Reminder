@@ -1,4 +1,5 @@
-//проверка успешности запроса
+import {getCookie} from '../util';
+
 export function notesFetchDataSuccess(type, data){
   return{
     type,
@@ -9,7 +10,15 @@ export function notesFetchDataSuccess(type, data){
 //GET-запрос для таблицы заметок
 export function stateFetchGetNotes(url){
   return(dispatch)=>{
-    fetch(url)
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        user_id: getCookie("user_id")
+      }),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
       .then(response => {
         if (!response.ok){
           throw new Error(response.statusText);

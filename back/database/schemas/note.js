@@ -14,7 +14,8 @@ const noteSchema = new mongoose.Schema({
     type: String
   },
   user_id:{
-    type: String
+    type: String,
+    required: [true, 'User_id is required']
   }
 })
 

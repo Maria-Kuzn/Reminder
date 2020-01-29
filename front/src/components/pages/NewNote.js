@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+
 import {API_BACK_URL} from '../../constants';
+import {getCookie} from '../../util';
 
 class NewNote extends Component{
   constructor(props) {
@@ -15,13 +17,13 @@ class NewNote extends Component{
     const date = data.get("noteDate");
     const time = data.get("noteTime");
 
-    fetch(API_BACK_URL + "/notes", {
+    fetch(API_BACK_URL + "/notes/add", {
           method: 'POST',
           body: JSON.stringify({
             title: data.get("noteTitle"),
             date: new Date(date + ' ' + time),
             comment: data.get("noteComment"),
-            user_id: 0
+            user_id: getCookie("user_id")
           }),
           headers:{
             'Content-Type': 'application/json'
@@ -31,7 +33,7 @@ class NewNote extends Component{
           if (response.ok) {
             window.location.href = "/";
           }
-        });
+        })
   }
 
   render(){
